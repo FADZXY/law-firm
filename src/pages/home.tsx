@@ -164,8 +164,22 @@ export default function Home() {
       }
     } catch (error) {
       console.error('Failed to send email:', error);
-      setSubmitMessage({ type: 'error', text: 'حدث خطأ أثناء إرسال الرسالة. يرجى التحقق من بيانات النموذج والمحاولة مرة أخرى.' });
-    }
+  // here inject
+  // 1. نجهز محتوى الرسالة (نستخدم encodeURIComponent عشان يدعم المسافات واللغة العربية)
+  const subject = encodeURIComponent("طلب استشارة جديد من الموقع");
+  const body = encodeURIComponent(
+    `الاسم: ${formData.name}\n` +
+    `رقم الهاتف: ${formData.phone}\n` +
+    `البريد الإلكتروني: ${formData.email}\n\n` +
+    `الرسالة:\n${formData.message}`
+  );
+  const lawyerEmail = "fadyhabeb93@gmail.com"; // ضع إيميل الزبون الحقيقي هنا
+  window.location.href = `mailto:${lawyerEmail}?subject=${subject}&body=${body}`;
+alert("نظراً لضغط الاستشارات الحالي، سيتم فتح تطبيق البريد الخاص بك لإرسال الطلب مباشرة لضمان وصوله فورا.");//here inject
+setSubmitMessage({ 
+        type: 'success', // استخدمنا success ليكون لونها أخضر ومريح
+        text: 'تم تجهيز رسالتك! يرجى تأكيد الإرسال من تطبيق البريد الذي فُتح لك للتو.' 
+      });    }
   };
 
   const navLinks = [
@@ -224,13 +238,17 @@ export default function Home() {
             <span className="text-white/30 text-xs">الرياض — المملكة العربية السعودية</span>
           </div>
         </div>
-
+        {/* injected here */}
         {/* Main row */}
-        <div className="container mx-auto px-6 h-20 flex items-center justify-between md:justify-center md:gap-16">
-          <nav className="hidden md:flex items-center gap-10">
+        {/* Main row */}
+        {/* استخدمنا Grid لتقسيم الشاشة لـ 3 أقسام متوازنة في الشاشات الكبيرة */}
+        <div className="container mx-auto px-6 h-20 flex items-center justify-between md:grid md:grid-cols-[1fr_auto_1fr] md:gap-4 lg:gap-8">
+          
+          {/* القسم الأيمن */}
+          <nav className="hidden md:flex items-center justify-start gap-4 lg:gap-10">
             {navLinks.slice(0, 2).map((l) => (
               <a key={l.href} href={l.href}
-                className="text-sm font-medium text-white/70 hover:text-white transition-colors relative group"
+                className="text-sm font-medium text-white/70 hover:text-white transition-colors relative group whitespace-nowrap"
                 data-testid={`link-${l.href.slice(1)}`}>
                 {l.label}
                 <span className="absolute -bottom-1 right-0 w-0 h-0.5 group-hover:w-full transition-all duration-300"
@@ -239,22 +257,24 @@ export default function Home() {
             ))}
           </nav>
 
-          <a href="#" className="flex flex-col items-center gap-1 flex-shrink-0">
-            <motion.div className="h-12 w-12 rounded-full border-2 flex items-center justify-center relative"
+          {/* الشعار في المنتصف (موحد للموبايل والديسكتوب) */}
+          <a href="#" className="flex flex-col items-center gap-1 justify-self-center z-10">
+            <motion.div className="h-10 w-10 md:h-12 md:w-12 rounded-full border-2 flex items-center justify-center relative"
               style={{ borderColor: `${GOLD}60`, background: `${BURG_D}99` }}
               whileHover={{ scale: 1.08, rotate: 5 }} transition={{ type: "spring", stiffness: 300 }}>
-              <Scale className="h-6 w-6" style={{ color: GOLD }} />
+              <Scale className="h-5 w-5 md:h-6 md:w-6" style={{ color: GOLD }} />
             </motion.div>
             <div className="text-center">
-              <p className="text-white font-black text-sm leading-tight">الغامدي وشركاه</p>
-              <p className="text-[9px]" style={{ color: `${GOLD}99` }}>للمحاماة والاستشارات القانونية</p>
+              <p className="text-white font-black text-xs md:text-sm leading-tight whitespace-nowrap">الغامدي وشركاه</p>
+              <p className="text-[7px] md:text-[9px] whitespace-nowrap" style={{ color: `${GOLD}99` }}>للمحاماة والاستشارات القانونية</p>
             </div>
           </a>
 
-          <nav className="hidden md:flex items-center gap-10">
+          {/* القسم الأيسر */}
+          <nav className="hidden md:flex items-center justify-end gap-4 lg:gap-10">
             {navLinks.slice(2).map((l) => (
               <a key={l.href} href={l.href}
-                className="text-sm font-medium text-white/70 hover:text-white transition-colors relative group"
+                className="text-sm font-medium text-white/70 hover:text-white transition-colors relative group whitespace-nowrap"
                 data-testid={`link-${l.href.slice(1)}`}>
                 {l.label}
                 <span className="absolute -bottom-1 right-0 w-0 h-0.5 group-hover:w-full transition-all duration-300"
@@ -262,7 +282,7 @@ export default function Home() {
               </a>
             ))}
             <motion.a href="#contact" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
-              <button className="text-sm font-bold px-5 py-2 rounded-full transition-all duration-300 hover:opacity-90"
+              <button className="text-sm font-bold px-4 py-2 lg:px-5 rounded-full transition-all duration-300 hover:opacity-90 whitespace-nowrap"
                 style={{ background: GOLD, color: BURG_D }}
                 data-testid="button-nav-consult">
                 طلب استشارة
@@ -270,7 +290,8 @@ export default function Home() {
             </motion.a>
           </nav>
 
-          <button className="md:hidden text-white p-2" onClick={() => setMobileOpen(!mobileOpen)}
+          {/* زر قائمة الموبايل */}
+          <button className="md:hidden text-white p-2 z-20" onClick={() => setMobileOpen(!mobileOpen)}
             data-testid="button-mobile-menu">
             {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
