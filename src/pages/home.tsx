@@ -12,10 +12,10 @@ import {
 } from "lucide-react";
 
 /* ─── Brand ─── */
-const BURG   = "#7a1515";
-const BURG_D = "#5c0e0e";
-const BURG_L = "#9b2020";
-const GOLD   = "#f0e2cc";   /* warm cream/ivory — elegant with burgundy */
+const BURG   = "#2d3d2e";
+const BURG_D = "#1d2b1e";
+const BURG_L = "#3b4e39";
+const GOLD   = "#c9a870";
 
 /* ─── Images (Unsplash – legal / professional – no English watermarks) ─── */
 const IMGS = {
@@ -164,22 +164,20 @@ export default function Home() {
       }
     } catch (error) {
       console.error('Failed to send email:', error);
-  // here inject
-  // 1. نجهز محتوى الرسالة (نستخدم encodeURIComponent عشان يدعم المسافات واللغة العربية)
-  const subject = encodeURIComponent("طلب استشارة جديد من الموقع");
-  const body = encodeURIComponent(
-    `الاسم: ${formData.name}\n` +
-    `رقم الهاتف: ${formData.phone}\n` +
-    `البريد الإلكتروني: ${formData.email}\n\n` +
-    `الرسالة:\n${formData.message}`
-  );
-  const lawyerEmail = "fadyhabeb93@gmail.com"; // ضع إيميل الزبون الحقيقي هنا
-  window.location.href = `mailto:${lawyerEmail}?subject=${subject}&body=${body}`;
-alert("نظراً لضغط الاستشارات الحالي، سيتم فتح تطبيق البريد الخاص بك لإرسال الطلب مباشرة لضمان وصوله فورا.");//here inject
-setSubmitMessage({ 
-        type: 'success', // استخدمنا success ليكون لونها أخضر ومريح
-        text: 'تم تجهيز رسالتك! يرجى تأكيد الإرسال من تطبيق البريد الذي فُتح لك للتو.' 
-      });    }
+      const subject = encodeURIComponent("طلب استشارة جديد من الموقع");
+      const body = encodeURIComponent(
+        `الاسم: ${formData.name}\n` +
+        `رقم الهاتف: ${formData.phone}\n` +
+        `البريد الإلكتروني: ${formData.email}\n\n` +
+        `الرسالة:\n${formData.message}`
+      );
+      const lawyerEmail = "fadyhabeb93@gmail.com";
+      window.location.href = `mailto:${lawyerEmail}?subject=${subject}&body=${body}`;
+      setSubmitMessage({
+        type: 'success',
+        text: 'تم تجهيز رسالتك! يرجى تأكيد الإرسال من تطبيق البريد الذي فُتح لك للتو.'
+      });
+    }
   };
 
   const navLinks = [
@@ -205,7 +203,7 @@ setSubmitMessage({
   ];
 
   const testimonials = [
-    { text: "لمسنا في فريق الغامدي وشركاه احترافية عالية ودقة متناهية في صياغة العقود التجارية المعقدة. استشاراتهم القانونية كانت الدرع الحصين لشركتنا في العديد من الصفقات الاستراتيجية.", author: "سلمان العتيبي", company: "الرئيس التنفيذي، مجموعة الرائدة للتطوير" },
+    { text: "لمسنا في فريق اسامه احسان سنبل احترافية عالية ودقة متناهية في صياغة العقود التجارية المعقدة. استشاراتهم القانونية كانت الدرع الحصين لشركتنا في العديد من الصفقات الاستراتيجية.", author: "سلمان العتيبي", company: "الرئيس التنفيذي، مجموعة الرائدة للتطوير" },
     { text: "التعامل مع تعقيدات الأنظمة الحكومية يتطلب خبيراً متمرساً، وهو ما وجدناه في هذا الكيان العريق. إنجاز في وقت قياسي ونتائج تفوق التوقعات.", author: "م. فهد الدوسري", company: "مدير الشؤون القانونية، قطاع المقاولات" },
     { text: "أكثر ما يميزهم هو الشفافية التامة والوضوح في تقييم الموقف القانوني. تولوا قضايا مالية شائكة لشركتنا وحسموا النزاعات لصالحنا بفضل الله.", author: "أحمد بن طارق", company: "رئيس مجلس الإدارة، شركة الأفق للاستثمار" },
   ];
@@ -238,10 +236,6 @@ setSubmitMessage({
             <span className="text-white/30 text-xs">الرياض — المملكة العربية السعودية</span>
           </div>
         </div>
-        {/* injected here */}
-        {/* Main row */}
-        {/* Main row */}
-        {/* استخدمنا Grid لتقسيم الشاشة لـ 3 أقسام متوازنة في الشاشات الكبيرة */}
         <div className="container mx-auto px-6 h-20 flex items-center justify-between md:grid md:grid-cols-[1fr_auto_1fr] md:gap-4 lg:gap-8">
           
           {/* القسم الأيمن */}
@@ -258,16 +252,11 @@ setSubmitMessage({
           </nav>
 
           {/* الشعار في المنتصف (موحد للموبايل والديسكتوب) */}
-          <a href="#" className="flex flex-col items-center gap-1 justify-self-center z-10">
-            <motion.div className="h-10 w-10 md:h-12 md:w-12 rounded-full border-2 flex items-center justify-center relative"
-              style={{ borderColor: `${GOLD}60`, background: `${BURG_D}99` }}
-              whileHover={{ scale: 1.08, rotate: 5 }} transition={{ type: "spring", stiffness: 300 }}>
-              <Scale className="h-5 w-5 md:h-6 md:w-6" style={{ color: GOLD }} />
+          <a href="#" className="flex items-center justify-center justify-self-center z-10">
+            <motion.div style={{ width: 140, height: 140 }} className="flex items-center justify-center relative"
+              whileHover={{ scale: 1.08 }} transition={{ type: "spring", stiffness: 300 }}>
+              <img src="/logo-trimmed.png" alt="شعار اسامه احسان سنبل" style={{ width: '100%', height: '100%', objectFit: 'contain' }} className="drop-shadow-lg" />
             </motion.div>
-            <div className="text-center">
-              <p className="text-white font-black text-xs md:text-sm leading-tight whitespace-nowrap">الغامدي وشركاه</p>
-              <p className="text-[7px] md:text-[9px] whitespace-nowrap" style={{ color: `${GOLD}99` }}>للمحاماة والاستشارات القانونية</p>
-            </div>
           </a>
 
           {/* القسم الأيسر */}
@@ -330,14 +319,6 @@ setSubmitMessage({
         <motion.div style={{ opacity: heroOp }}
           className="relative z-10 text-center px-4 max-w-5xl mx-auto pt-44 pb-28">
           <motion.div initial="hidden" animate="visible" variants={stagger}>
-
-            <motion.div variants={fadeUp} className="flex items-center justify-center gap-3 mb-8">
-              <div className="h-px w-16" style={{ background: `${GOLD}80` }} />
-              <p className="text-sm font-semibold tracking-[0.3em] uppercase" style={{ color: GOLD }}>
-                شركة الغامدي وشركاه
-              </p>
-              <div className="h-px w-16" style={{ background: `${GOLD}80` }} />
-            </motion.div>
 
             <motion.h1 variants={fadeUp}
               className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[1.15] mb-10">
@@ -470,7 +451,7 @@ setSubmitMessage({
                 <span style={{ color: GOLD }}>والمصداقية</span>
               </h2>
               <div className="space-y-5 text-white/50 leading-loose">
-                <p>تأسست "الغامدي وشركاه" على مبادئ راسخة من العدالة والشفافية. منذ بداياتنا، التزمنا بتقديم استشارات قانونية مبنية على الفهم العميق للبيئة التنظيمية والتجارية في المملكة.</p>
+                <p>تأسست "اسامه احسان سنبل" على مبادئ راسخة من العدالة والشفافية. منذ بداياتنا، التزمنا بتقديم استشارات قانونية مبنية على الفهم العميق للبيئة التنظيمية والتجارية في المملكة.</p>
                 <p>نحن نؤمن بأن المحاماة ليست مجرد مهنة، بل هي رسالة لتحقيق العدل وحماية الحقوق. فريقنا يجمع بين التأصيل الشرعي والخبرة العملية في الأنظمة المعاصرة.</p>
                 <p>نتشرف بثقة كبرى الكيانات التي نعدها شركاء نجاح، ونعمل معهم جنباً إلى جنب لتحقيق أهدافهم الاستراتيجية وحمايتهم من المخاطر القانونية.</p>
               </div>
@@ -769,13 +750,12 @@ setSubmitMessage({
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             <div className="md:col-span-2">
               <div className="flex items-center gap-3 mb-5">
-                <motion.div className="h-11 w-11 rounded-full border-2 flex items-center justify-center"
-                  style={{ borderColor: `${GOLD}50`, background: `${BURG}80` }}
-                  whileHover={{ rotate: 10 }}>
-                  <Scale className="h-5 w-5" style={{ color: GOLD }} />
+                <motion.div className="h-16 w-16 flex items-center justify-center shrink-0"
+                  whileHover={{ scale: 1.08 }}>
+                  <img src="/logo-trimmed.png" alt="شعار اسامه احسان سنبل" className="w-full h-full object-contain drop-shadow-md" />
                 </motion.div>
                 <div>
-                  <p className="font-black text-white text-lg leading-tight">الغامدي وشركاه</p>
+                  <p className="font-black text-white text-lg leading-tight">اسامه احسان سنبل</p>
                   <p className="text-[10px]" style={{ color: `${GOLD}80` }}>للمحاماة والاستشارات القانونية</p>
                 </div>
               </div>
@@ -804,7 +784,7 @@ setSubmitMessage({
           <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 border-t"
             style={{ borderColor: `${GOLD}12` }}>
             <p className="text-white/25 text-xs">
-              © {new Date().getFullYear()} شركة الغامدي وشركاه للمحاماة والاستشارات القانونية. جميع الحقوق محفوظة.
+              © {new Date().getFullYear()} شركة اسامه احسان سنبل للمحاماة والاستشارات القانونية. جميع الحقوق محفوظة.
             </p>
             <div className="flex gap-6">
               <a href="#" className="text-white/25 hover:text-white/60 text-xs transition-colors">سياسة الخصوصية</a>
