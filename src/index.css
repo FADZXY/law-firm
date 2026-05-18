@@ -190,7 +190,7 @@
 }
 
 .wave-layer {
-  animation: waveMove linear infinite;
+  animation: waveMove 20s linear infinite;
   will-change: transform;
   /* added */
   transform: translateZ(0) ;
