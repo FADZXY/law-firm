@@ -192,6 +192,8 @@
 .wave-layer {
   animation: waveMove linear infinite;
   will-change: transform;
+  /* added */
+  transform: translateZ(0) ;
 }
 
 @layer utilities {
