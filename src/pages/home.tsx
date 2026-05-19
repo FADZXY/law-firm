@@ -49,13 +49,17 @@ function WaveBg({ speed = 18, opacity = 0.06 }: { speed?: number; opacity?: numb
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {[0, 1, 2, 3].map((i) => (
-        <div key={i} className="wave-layer absolute left-0 right-0"
-          style={{ top: `${i * 22}%`, animationDuration: `${speed + i * 5}s`, animationDirection: i % 2 === 0 ? "normal" : "reverse" }}>
-          <svg viewBox="0 0 2880 120" xmlns="http://www.w3.org/2000/svg"
-            style={{ width: "200%", opacity, display: "block" }} preserveAspectRatio="none">
-            <path d={`M0,${40+i*8} C240,${80+i*6} 480,${10+i*4} 720,${50+i*5} C960,${90+i*4} 1200,${20+i*3} 1440,${60+i*6} C1680,${95+i*5} 1920,${15+i*4} 2160,${55+i*5} C2400,${90+i*3} 2640,${25+i*4} 2880,${50+i*5} L2880,120 L0,120 Z`}
-              fill="white" />
-          </svg>
+        <div key={i} className="wave-layer absolute left-0 right-0 overflow-hidden"
+          style={{ top: `${i * 22}%` }}>
+          <div className="wave-track" style={{ animationDuration: `${speed + i * 5}s`, animationDirection: i % 2 === 0 ? "normal" : "reverse" }}>
+            {[0, 1].map((j) => (
+              <svg key={j} viewBox="0 0 2880 120" xmlns="http://www.w3.org/2000/svg"
+                style={{ width: "50%", minWidth: "50%", opacity, display: "block" }} preserveAspectRatio="none">
+                <path d={`M0,${40+i*8} C240,${80+i*6} 480,${10+i*4} 720,${50+i*5} C960,${90+i*4} 1200,${20+i*3} 1440,${60+i*6} C1680,${95+i*5} 1920,${15+i*4} 2160,${55+i*5} C2400,${90+i*3} 2640,${25+i*4} 2880,${50+i*5} L2880,120 L0,120 Z`}
+                  fill="white" />
+              </svg>
+            ))}
+          </div>
         </div>
       ))}
     </div>
@@ -229,7 +233,7 @@ export default function Home() {
         <div className="border-b border-white/10 py-2 hidden md:block">
           <div className="container mx-auto px-6 flex justify-between items-center">
             <div className="flex gap-4 text-white/40 text-xs">
-              <a href="tel:+966112345678" className="hover:text-white/70 transition-colors" dir="ltr">+966 11 234 5678</a>
+              <a href="tel:+966112345678" className="hover:text-white/70 transition-colors" dir="ltr">+966 11 234 5432</a>
               <span>|</span>
               <a href="mailto:info@alghamdilegal.sa" className="hover:text-white/70 transition-colors">info@alghamdilegal.sa</a>
             </div>
@@ -644,7 +648,7 @@ export default function Home() {
             <motion.div variants={fadeLeft} className="lg:col-span-2 space-y-5">
               {[
                 { icon: MapPin, title: "المكتب الرئيسي", val: "برج المملكة، طريق الملك فهد\nالرياض، المملكة العربية السعودية" },
-                { icon: Phone, title: "الهاتف المباشر", val: "+966 11 234 5678", ltr: true },
+                { icon: Phone, title: "الهاتف المباشر", val: "+966 11 234 5432", ltr: true },
                 { icon: Mail,  title: "البريد الإلكتروني", val: "info@alghamdilegal.sa", ltr: true },
               ].map(({ icon: Icon, title, val, ltr }, i) => (
                 <motion.div key={i}
