@@ -184,18 +184,39 @@
 }
 
 /* Wave animation */
+/* @keyframes waveMove { */
+  /* 0%   { transform: translateX(0); } */
+  /* 100% { transform: translateX(-50%); } */
+/* } */
+
+/* .wave-layer { */
+  
+  /* animation: waveMove 20s linear infinite; */
+  /* will-change: transform; */
+  /* added */
+  /* transform: translateZ(0) ; */
+/* } */
+/* new */
+/* 1. Use 3D transforms in the keyframes to lock the GPU */
 @keyframes waveMove {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
 }
 
 .wave-layer {
   animation: waveMove 20s linear infinite;
-  will-change: transform;
-  /* added */
-  transform: translateZ(0) ;
+  
+  /* 2. THE WEBKIT NUCLEAR CODES */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000px;
+  perspective: 1000px;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  
+  /* 3. Make absolutely sure will-change is DELETED */
 }
-
+/* ends */
 @layer utilities {
   input[type="search"]::-webkit-search-cancel-button { @apply hidden; }
   [contenteditable][data-placeholder]:empty::before {
