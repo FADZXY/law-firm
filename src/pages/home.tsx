@@ -52,7 +52,7 @@ function WaveBg({ speed = 18, opacity = 0.06 }: { speed?: number; opacity?: numb
         <div key={i} className="wave-layer absolute left-0 right-0"
           style={{ top: `${i * 22}%`, animationDuration: `${speed + i * 5}s`, animationDirection: i % 2 === 0 ? "normal" : "reverse" }}>
           <svg viewBox="0 0 2880 120" xmlns="http://www.w3.org/2000/svg"
-            style={{ width: "200%", opacity }} preserveAspectRatio="none">
+            style={{ width: "200%", opacity, display: "block" }} preserveAspectRatio="none">
             <path d={`M0,${40+i*8} C240,${80+i*6} 480,${10+i*4} 720,${50+i*5} C960,${90+i*4} 1200,${20+i*3} 1440,${60+i*6} C1680,${95+i*5} 1920,${15+i*4} 2160,${55+i*5} C2400,${90+i*3} 2640,${25+i*4} 2880,${50+i*5} L2880,120 L0,120 Z`}
               fill="white" />
           </svg>

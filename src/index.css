@@ -205,16 +205,15 @@
 
 .wave-layer {
   animation: waveMove 20s linear infinite;
-  
-  /* 2. THE WEBKIT NUCLEAR CODES */
+  animation-timing-function: linear;
+  will-change: transform;
+
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   -webkit-perspective: 1000px;
   perspective: 1000px;
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
-  
-  /* 3. Make absolutely sure will-change is DELETED */
 }
 /* ends */
 @layer utilities {
